@@ -108,7 +108,7 @@ class InternetSpeedTest {
   }
 
   Future<CancelListening> _startListening(
-      Tuple3<ErrorCallback, ProgressCallback, DoneCallback> callback, String testServer,
+      Tuple3<ErrorCallback, ProgressCallback, DoneCallback> callback, CallbacksEnum callbacksEnum, String testServer,
       {Map<String, dynamic>? args, int fileSize = 200000}) async {
     _channel.setMethodCallHandler(_methodCallHandler);
     int currentListenerId = currentListenerCallback.index;
@@ -145,7 +145,8 @@ class InternetSpeedTest {
       int fileSize = 200000,
       String testServer = 'http://ipv4.ikoula.testdebit.info/1M.iso'}) async {
     currentListenerCallback = CallbacksEnum.START_DOWNLOAD_TESTING;
-    return await _startListening(Tuple3(onError, onProgress, onDone), testServer, fileSize: fileSize);
+    return await _startListening(Tuple3(onError, onProgress, onDone), CallbacksEnum.START_DOWNLOAD_TESTING, testServer,
+        fileSize: fileSize);
   }
 
   Future<CancelListening> startUploadTesting({
@@ -156,6 +157,7 @@ class InternetSpeedTest {
     String testServer = 'http://ipv4.ikoula.testdebit.info/',
   }) async {
     currentListenerCallback = CallbacksEnum.START_UPLOAD_TESTING;
-    return await _startListening(Tuple3(onError, onProgress, onDone), testServer, fileSize: fileSize);
+    return await _startListening(Tuple3(onError, onProgress, onDone), CallbacksEnum.START_UPLOAD_TESTING, testServer,
+        fileSize: fileSize);
   }
 }
