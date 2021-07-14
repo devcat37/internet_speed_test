@@ -1,7 +1,7 @@
 enum CallbacksEnum {
-  NONE,
   START_DOWNLOAD_TESTING,
   START_UPLOAD_TESTING,
+  NONE,
 }
 
 enum ListenerEnum {

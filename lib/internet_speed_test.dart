@@ -128,14 +128,17 @@ class InternetSpeedTest {
   }
 
   Future<CancelListening> stopListening() async {
-    int currentListenerId = currentListenerCallback.index;
+    if (currentListenerCallback != CallbacksEnum.NONE) {
+      int currentListenerId = currentListenerCallback.index;
 
-    return () {
-      if (currentListenerCallback != CallbacksEnum.NONE) _channel.invokeMethod("cancelListening", currentListenerId);
-      if (currentListenerCallback != CallbacksEnum.NONE) _callbacksById.remove(currentListenerId);
+      return () {
+        _channel.invokeMethod("cancelListening", currentListenerId);
+        _callbacksById.remove(currentListenerId);
 
-      currentListenerCallback = CallbacksEnum.NONE;
-    };
+        currentListenerCallback = CallbacksEnum.NONE;
+      };
+    }
+    return () {};
   }
 
   Future<CancelListening> startDownloadTesting(
